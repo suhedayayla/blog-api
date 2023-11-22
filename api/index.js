@@ -7,11 +7,21 @@ const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
+const path = require("path");
+
 
 dotenv.config();
 app.use(express.json()); //postmande test ederken json tipiyle çalışması için bunu ekledik
+app.use("/images", express.static(path.join(__dirname, "/images")));
 
-mongoose.connect(process.env.MONGO_URL,)
+mongoose.connect
+        (process.env.MONGO_URL,
+            {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                useCreateIndex: true,
+                useFindAndModify:true
+              })
         .then(console.log("Connected to monggodb"))
         .catch(err=>console.log(err));
 
@@ -24,13 +34,14 @@ mongoose.connect(process.env.MONGO_URL,)
                 cb(null,req.body.name);
             },
         });
-        const upload = multer({storage:storage});
-        //we use post because we create something
+   
+        const upload = multer({ storage: storage });
+        app.post("/api/upload", upload.single("file"), (req, res) => {
+     //we use post because we create something
         //we use upload.single because we upload 1 picture.
-        app.post("/api/upload",upload.single("file"),(req,res)=>{
-            res.status(200).json("Dosya başarıyla yüklendi.")
 
-        })
+        res.status(200).json("File has been uploaded");
+});
 
 app.use("/api/auth",authRoute);
 app.use("/api/users",userRoute);

@@ -4,20 +4,22 @@ import Posts from "../../components/Posts/Posts"
 import SideBar from "../../components/SideBar/SideBar"
 import "./home.css"
 import axios from "axios"
+import { useLocation } from "react-router-dom"
 
 export default function Home () {
-        const [posts,setPosts] =useState([]);
+    const [posts,setPosts] = useState([])   // useStatein içinde boş array tanımladık, initial state olduğu için. çünkü henüz data fetchlemedik.
+    const {search} = useLocation();
 
-        useEffect(() => {
-                const fetchPosts = async ()=>{ //dataları getirmek için bu fetchposts
-                const res = await axios.get("/posts")
-                setPosts(res.data)
-                }
-                fetchPosts()
-        },[])  //yukarıdaki useStatein içinde boş array tanımladık, initial state olduğu için. çünkü henüz data fetchlemedik.
-                //useEffecttede [] boş array ekledik that means fire this useeffect at the beginning
-  
-          return (
+    useEffect (()=>{
+        const fetchPosts = async () => {
+            const res = await axios.get("/posts"+search)
+            setPosts(res.data)
+        }
+        fetchPosts()
+
+    }, [])                //useEffecttede [] boş array ekledik that means fire this useeffect at the beginning
+
+    return (
             <>
             <Header/>
             <div className="home">
@@ -30,3 +32,4 @@ export default function Home () {
     
 }
     
+  

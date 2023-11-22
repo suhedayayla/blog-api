@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TopBar from './components/TopBar/TopBar';
 import Home from './Pages/Home/Home';
 import Single from './Pages/Single/Single';
@@ -11,9 +11,10 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import { Context } from './context/Context';
 
 function App() {
-  const user= false;
+  const {user}= useContext(Context);
 
   return (
     <Router forceRefresh={true}>
