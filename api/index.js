@@ -15,13 +15,7 @@ app.use(express.json()); //postmande test ederken json tipiyle çalışması iç
 app.use("/images", express.static(path.join(__dirname, "/images")));
 
 mongoose.connect
-        (process.env.MONGO_URL,
-            {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-                useCreateIndex: true,
-                useFindAndModify:true
-              })
+        (process.env.MONGO_URL)
         .then(console.log("Connected to monggodb"))
         .catch(err=>console.log(err));
 

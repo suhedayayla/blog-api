@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import Header from "../../components/Header/Header"
 import Posts from "../../components/Posts/Posts"
-import SideBar from "../../components/SideBar/SideBar"
 import "./home.css"
 import axios from "axios"
 import { useLocation } from "react-router-dom"
@@ -24,7 +23,6 @@ export default function Home () {
             <Header/>
             <div className="home">
                <Posts posts={posts}/>
-               <SideBar/>
             
         </div>
         </>

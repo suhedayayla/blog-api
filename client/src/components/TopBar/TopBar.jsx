@@ -1,45 +1,70 @@
 import { Link } from "react-router-dom";
 import "./topbar.css"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 
 export default function TopBar () {
     const {user, dispatch}= useContext(Context);
     const PF = "http://localhost:5000/images/";
+    const [searchTerm, setSearchTerm] = useState("");
+    const history = useHistory();
+
+
 
     const handleLogout =() =>{
         dispatch({type:"LOGOUT"})
     }
 
+    const handleSearch = async () => {
+        try {
+          const response = await axios.get(`/posts/search/`+ searchTerm);
+          history.push(`/search/${searchTerm}`, { posts: response.data, searchTerm });
+        } catch (err) {
+          console.error("Search error:", err);
+        }
+      };
 
-
+      const handleEnterPress = (e) => {
+        if (e.key === "Enter") {
+          handleSearch();
+        }
+      };
+      
     return (
     <div className="top">
         <div className="topLeft">
-        <i className="topIcon fa-brands fa-square-facebook"></i>
-        <i className="topIcon fa-brands fa-square-x-twitter"></i>
-        <i className="topIcon fa-brands fa-square-instagram"></i>
+        <a className="link" href="https://www.instagram.com/doamutfak/"
+         target="_blank" rel="noopener noreferrer">
+             <i className="topIcon fa-brands fa-square-instagram"></i>
+</a>
+
         </div>
         <div className="topCenter">
             <ul className="topList">
             <li className="topListItem"> 
-            <Link className="link" to="/">ANASAYFA</Link></li>
-            <li className="topListItem">
-            <Link className="link" to="/">HAKKIMIZDA</Link></li>
+            <Link className="link" to="/">Anasayfa</Link></li>
                 
             <li className="topListItem">
-            <Link className="link" to="/">İLETİŞİM</Link></li>
-                
-            <li className="topListItem">
-            <Link className="link" to="/write">YAZILAR</Link></li>
-                
-            <li className="topListItem" onClick={handleLogout}>
-                {user && "ÇIKIŞ YAP"}</li>
-                
+                <Link className="link" to="/write">
+                    <div className="linkContent">
+                    <i className="fa-solid fa-plus icon"></i>
+                         <span>Tarif Ekle</span>
+                         </div>
+                         </Link>
+                         </li>
+        
+            
             </ul>
         </div>
+
         <div className="topRight">
+  
+        <li className="topListItem" style={{ listStyleType: 'none' }} onClick={handleLogout}>
+                {user && "Çıkış Yap"}</li>
+                
             {user?(
                 <Link to="/settings">
                 <img className="topImg"
@@ -49,17 +74,26 @@ export default function TopBar () {
             ) : (
                 <ul className="topList">
                     <li className="topListItem">
-                        <Link className="link" to="/login">GİRİŞ YAP</Link>
+                        <Link className="link" to="/login">Giriş Yap</Link>
                     </li>
                     <li className="topListItem">
-                        <Link className="link" to="/register">KAYIT OL</Link>
+                        <Link className="link" to="/register">Kayıt Ol</Link>
                     </li>
                 </ul>
             )}
             
-            
-            <i className="topSearchIcon fa-solid fa-magnifying-glass"></i>
-        </div>
+        <input className="searchIconInput"
+                type="text"
+                placeholder="Tarif ara..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyPress={handleEnterPress} // Enter tuşuna basıldığında handleEnterPress fonksiyonunu çağır
+
+      />
+      <i className="topSearchIcon fa-solid fa-magnifying-glass"
+                onClick={handleSearch}
+      ></i>   
+           </div>
 
     </div>
     )

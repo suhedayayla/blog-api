@@ -6,6 +6,8 @@ import Write from './Pages/Write/Write';
 import Settings from './Pages/Settings/Settings';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
+import Search from "./Pages/Search/Search";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,7 +28,8 @@ function App() {
       <Route path="/write"> {user? <Write/> :<Register/>}</Route>
       <Route path="/settings">{user? <Settings/> :<Register/>}</Route>
       <Route path="/post/:postId"><Single/></Route>
-      
+      <Route path="/search/:searchTerm" exact component={Search} />
+
    </Switch>
    </Router>
   );

@@ -116,6 +116,20 @@ router.get("/",async (req,res) => {
 
     }
  })
+// Search Posts
+router.get("/posts/search/:searchTerm", async (req, res) => {
+    try {
+      const searchTerm = req.params.searchTerm;
+      console.log(searchTerm);
+      const searchResults = await Post.find({
+        title: { $regex: new RegExp(searchTerm, "i") }, // i: case-insensitive
+      });
+  
+      res.status(200).json(searchResults);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
-
+  
 module.exports = router
