@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-
+import doa_logo_black from "../Logo/doa_logo_black.png";
 
 export default function TopBar () {
     const {user, dispatch}= useContext(Context);
@@ -36,28 +36,41 @@ export default function TopBar () {
     return (
     <div className="top">
         <div className="topLeft">
-        <a className="link" href="https://www.instagram.com/doamutfak/"
-         target="_blank" rel="noopener noreferrer">
-             <i className="topIcon fa-brands fa-square-instagram"></i>
-</a>
-
-        </div>
-        <div className="topCenter">
-            <ul className="topList">
+        <ul className="topList">
             <li className="topListItem"> 
-            <Link className="link" to="/">Anasayfa</Link></li>
-                
-            <li className="topListItem">
+            <Link className="link" to="/">
+               <img src={doa_logo_black} alt="Logo" className="logo" />
+            </Link>
+            </li>
+            </ul>
+       </div>
+       
+       
+        <div className="topCenter">
+        <ul className="topList">
+             <li className="topListItem">
                 <Link className="link" to="/write">
                     <div className="linkContent">
                     <i className="fa-solid fa-plus icon"></i>
-                         <span>Tarif Ekle</span>
-                         </div>
-                         </Link>
-                         </li>
+                     <span>Tarif Ekle</span>
+                     </div>
+               </Link>
+                </li>
         
-            
-            </ul>
+     <li className="topListItem">          
+        <input className="searchIconInput"
+                type="text"
+                placeholder="Tarif ara..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyPress={handleEnterPress} // Enter tuşuna basıldığında handleEnterPress fonksiyonunu çağır
+
+      />
+      <i className="topSearchIcon fa-solid fa-magnifying-glass"
+                onClick={handleSearch}>
+                    </i> 
+      </li>                  
+      </ul>
         </div>
 
         <div className="topRight">
@@ -81,18 +94,11 @@ export default function TopBar () {
                     </li>
                 </ul>
             )}
-            
-        <input className="searchIconInput"
-                type="text"
-                placeholder="Tarif ara..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyPress={handleEnterPress} // Enter tuşuna basıldığında handleEnterPress fonksiyonunu çağır
-
-      />
-      <i className="topSearchIcon fa-solid fa-magnifying-glass"
-                onClick={handleSearch}
-      ></i>   
+   
+       <a className="link" href="https://www.instagram.com/doamutfak/"
+         target="_blank" rel="noopener noreferrer">
+             <i className="topIcon fa-brands fa-square-instagram"></i>
+</a>  
            </div>
 
     </div>

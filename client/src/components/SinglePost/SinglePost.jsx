@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context"
+import ReactMarkdown from "react-markdown"; // react-markdown ekleyin
 
 
 export default function SinglePost () {
@@ -57,9 +58,12 @@ export default function SinglePost () {
     return (
         <div className="singlePost">
            <div className="singlePostWrapper">
+           <div class="imageContainer">
+
             {post.photo && (
             <img src={"http://localhost:5000/images/" + post.photo} alt="" className="singlePostImg" />
             )}
+            </div>
             {updateMode ? (
                 <input 
                     type="text" 
@@ -101,7 +105,7 @@ export default function SinglePost () {
                      value={desc}
                      onChange={(e) => setDesc(e.target.value)}
                      /> ):(
-                <p className="singlePostDesc">
+                <p className="singlePostDesc" style={{ whiteSpace: "pre-line" }}>
                     {desc}
                 </p>
             )}

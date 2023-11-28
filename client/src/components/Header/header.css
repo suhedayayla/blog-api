@@ -1,29 +1,31 @@
-.header{
-    margin-top: 60px;
+.header {
+    margin-top: 80px; /* Topbar'ın yüksekliğine eşitledik */
+    position: relative; /* Pozisyonu ekledik */
 }
-.headerTitles{
+
+.headerTitles {
     display: flex;
-    flex-direction: column; /*titlesları alt alta yazdık*/
+    flex-direction: column;
     align-items: center;
     font-family: 'Lora', serif;
-    color:#444;
-
-
+    color: #444;
 }
 
-.headerTitleSm{
-    position:absolute;
-    top:18%;
+.headerTitleSm {
+    position: absolute;
+    top: 18%;
     font-size: 20px;
+    z-index: 999;
 }
-.headerTitleLg{
-    position:absolute;
-    top:20%;
+
+.headerTitleLg {
+    position: absolute;
+    top: 20%;
     font-size: 100px;
 }
-.headerImg{
+
+.headerImg {
     width: 100%;
     height: 450px;
-    margin-top: 80px;
     object-fit: cover;
 }

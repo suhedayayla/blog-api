@@ -1,17 +1,41 @@
-.singlePost{
-    flex: 9;
+.singlePost {
+    flex: 7; /* Düşürülen flex değeri */
 }
-.singlePostWrapper{
-    padding: 20px;
-    padding-right: 0;
+
+
+/* Duyarlılık için ek düzenleme */
+@media only screen and (max-width: 768px) {
+    .singlePostImg {
+        max-height: 1000px; /* Mobil görünüm için farklı bir yükseklik belirleyebilirsiniz */
+    }
+}
+
+.singlePostWrapper {
+    padding: 2%;
+    padding-right: 15%; /* Sağdan eklenen padding */
     display: flex;
     flex-direction: column;
+    box-sizing: border-box; /* Padding ve border'ı içeriğin genişliğine dahil etmek için */
 }
+.imageContainer{
+    width: 100%; /* Sayfanın dörtte biri kadar genişlik */
+    margin: 0 auto; /* Sayfa içinde ortalamak için */
+}
+
+.imageContainer img {
+    width: 100%; /* Container içinde tam genişlik */
+    height: auto; /* Oranları korumak için */
+    display: block; /* İnline özellikleri kaldırmak için */
+    border-radius: 5px; /* İsteğe bağlı olarak kenar yuvarlatma ekleyebilirsiniz */
+}
+
+
 .singlePostImg{
     width: 100%;
-    height: 450px;
+    height: 60%;
     border-radius: 5px;
     object-fit: cover;
+    
 }
 .singlePostTitle{
     text-align: center;
